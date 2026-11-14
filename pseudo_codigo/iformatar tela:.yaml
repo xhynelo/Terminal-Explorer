@@ -1,0 +1,78 @@
+formatar tela:
+    -calcula colunas totais da tela lv:colunas_totias
+    -adiciona variavel auxiliar para uso da culona lv:col_por_linha
+    -adicona variavel auxiliar para alinhamento lv:alinhamento=padrao
+    -adiciona variavel auxiliar para numero maiximo de itens por linha lv:max_itens_por_linha=10
+    -adciona variavel auxiliar para quantidade de itens por linha lv:qtd_itens_por_linha=0
+    -adiciona variavel auxiliar para indice da linha na tela lv:indice_linha_tela=""
+    -adiciona variavel para indicação de contexto lv:contexto=""
+    -LOOP: para cada indice em gv:ITENS_INDEX
+        -pega tamanho item lv:t_item <- gv:ITENS_TAMANHO[i]
+        -pega formatacao item lv:f_item <- gv:ITENS_FORMATACAO[i]
+        -CASO: gv:ITENS_FORMATACAO[i]
+            -"CONTEXTO"
+                -SE: inicio do contexto
+                    -seta contexto
+                    -adiciona barra de incio em gv:TELA_FORMATACAO
+                -SE: fim do contexto
+                    -adciona a concatenação das formatações a soma do tamanho da linha dos conteudos e os indices do conteudo em gv:TELA_FORMATACAO
+                    -adiciona barra de fim em gv:TELA_FORMATACAO
+            -"ALINHAMENTO"
+                -lv:alinhamento <- gv:ITENS_CONTEUDO[i]
+                -lv:tamanho_linha <- gv:ITENS_TAMANHO_LINHA[i]
+            -"MAX_ITENS"
+                -lv:max_itens_por_linha <- gv:ITENS_CONTEUDO[i][1]
+            -""
+                -SE: qtd de itens por linha igual a itens maximos por linha
+                    -adciona a concatenação das formatações a soma do tamanho da linha dos conteudos e os indices do conteudo em gv:TELA_FORMATACAO
+                -SE: tamanho do item for ultrapassar a quantidade maxima de colunas na tela
+                    -adciona a concatenação das formatações a soma do tamanho da linha dos conteudos e os indices do conteudo em gv:TELA_FORMATACAO
+                -adiciona indice atual em lv:indice_linha_tela
+
+desenhar tela:
+    descricao:
+        pega cada linha da estrutura de linhas e desenha na tela de acordo com a formatação e alinhamento definido
+    passos:
+        -pega o tamanho da usado da linha
+        -pega o alinhamento da linha
+        -escreve a linha usando formatacao e parametro
+        -repete para cada linha da estrutura de linhas
+    como fazer:
+        -LOOP: para cada indice em gv:TELA_FORMATACAO
+            -pega tamanho item lv:t_item <- gv:TELA_TAMANHO[i]
+            -pega formatacao item lv:f_item <- gv:TELA_FORMATACAO[i]
+            -pega alinhamento item lv:a_item <- gv:LINHAS_ALINHAMENTO[i]
+            -pega conteudo item lv:c_item <- gv:LINHAS_CONTEUDO[i]
+            -SE: lv:f_item igual de inicio ou fim
+                -escreve barras de inicio ou fim de contexto
+            -SENAO:
+                -escreve borda no inicio e no fim da linha
+                -CASO: lv:a_item
+                    -"esquerda"
+                        -passa cursor para o segundo caracter da borda
+                        -escreve a linha formatada                
+                    -"centro"
+                        -passa o cursos para o meio menos a metade do tamanho da linha
+                        -escreve a linha formatada
+                    -"direita"
+                        -passa o cursos para a penultima posição menos o tamanho da linha
+                        -escreve a linha formatada
+                    -"padrao"
+                        -escreve a linha formatada
+
+
+
+
+
+desenhar tela:
+    -LOOP: para cada indice em gv:TELA_FORMATACAO
+        -pega tamanho item lv:t_item <- gv:TELA_TAMANHO[i]
+        -pega formatacao item lv:f_item <- gv:TELA_FORMATACAO[i]
+        -pega alinhamento item lv:a_item <- gv:LINHAS_ALINHAMENTO[i]
+        -pega conteudo item lv:c_item <- gv:LINHAS_CONTEUDO[i]
+        -SE: lv:f_item for igual a "CONTEXTO"
+            -SE: inicio do contexto
+                -adiciona barra de incio em gv:TELA_FORMATACAO
+            -SE: fim do contexto
+                -adciona a concatenação das formatações a soma do tamanho da linha dos conteudos e os indices do conteudo em gv:TELA_FORMATACAO
+                -adiciona barra de fim em gv:TELA_FORMATACAO

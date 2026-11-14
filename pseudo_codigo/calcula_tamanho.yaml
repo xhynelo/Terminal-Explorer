@@ -1,0 +1,25 @@
+calcula_tamanho (simplificado):
+  descrição: "calcula tamanho real de uma string"
+  passos:
+    -pega string de entrada
+    -calcula tamanho com "printf" e "wc -L" retirando codigos de cores
+    -calcula tamanho retirando retirando codigos de cores e emotes de espaço unico
+    -soma espaço se necessário
+
+calcula_tamanho (intermediário):
+  descrição: "calcula tamanho real de uma string"
+  passos:
+    -pega string de entrada lv:string_entrada
+    -calcula tamanho com "printf" e "wc -L" retirando codigos de cores lv:tamanho_sem_cores <- $(printf "%s" "$lv:string_entrada" | sed 's/\x1b\[[0-9;]*m//g' | wc -L)
+    -calcula tamanho retirando retirando codigos de cores e emotes de espaço unico lv:tamanho_sem_cores_e_emotes <- $(printf "%s" "$lv:string_entrada" | sed 's/\x1b\[[0-9;]*m//g' | sed 's/['"$EMOJI_TAM_1"']//g' | wc -L)
+    -soma espaço se necessário lv:tamanho_final <- $((lv:tamanho_sem_cores_e_emotes + (lv:tamanho_sem_cores - lv:tamanho_sem_cores_e_emotes)))
+
+caalcula_tamanho (avançado):
+  descrição: "calcula tamanho real de uma string"
+  passos:
+    -lv:string_entrada <- string de entrada 
+    -lv:string_sem_cores <- string sem codigos de cores 
+    -lv:tamanho_string <- tamanho da string lv:string_sem_cores usando 
+    -lv:string_sem_emotes <- lv:string_sem_cores sem gv:EMOJI_TAM_1
+    -lv:tamanho_sem_emotes <- tamanho da string lv:string_sem_emotes usando
+    -lv:tamanho_final <- soma de lv:tamanho_sem_emotes + ((lv:tamanho_string - lv:tamanho_sem_emotes) * 2)

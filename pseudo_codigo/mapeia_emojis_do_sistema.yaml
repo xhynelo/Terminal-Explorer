@@ -1,0 +1,18 @@
+mapear_emojis_do_sistema (simplificado):
+  descrição: "mapear entre emojis calculados como ocupando 1 ou 2 espaços na tela pelo bash"
+  passos:
+    -pega a lista de emojis do sistema
+    -verifica o tamanho de cada emoji na lista
+    -adiciona em uma variável correspondente a ocupar 1 ou 2 espaços na tela pelo bash
+
+mapear_emojis_do_sistema (intermediário):
+  descrição: "mapear entre emojis calculados como ocupando 1 ou 2 espaços na tela pelo bash"
+  passos:
+    -pega a lista de emojis do sistema ga:LISTA_GERAL_DE_ICONES
+    -LOOP: para cada emoji em ga:LISTA_GERAL_DE_ICONES
+        -pega o emoji atual lv:emoji_atual <- ga:LISTA_GERAL_DE_ICONES[i]
+        -pega o tamanho do emoji atual lv:tamanho_emoji_atual <- ${#lv:emoji_atual}
+        -SE: tamanho do emoji atual for igual a 1
+            -adiciona o emoji atual em gv:EMOJI_TAM_1+=(lv:emoji_atual)
+        -SENAO:
+            -adiciona o emoji atual em gv:EMOJI_TAM_2+=(lv:emoji_atual)

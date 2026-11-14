@@ -36,3 +36,8 @@ O programa começa no diretório definido por `BASE_DIR` em `globals.sh`
 Os arquivos são carregados automaticamente por `navegar.sh`. Para adicionar um
 módulo, coloque o arquivo `.sh` no diretório correspondente ou registre-o nas
 importações do ponto de entrada.
+
+## Licença
+
+Este projeto está licenciado sob a [GNU General Public License](LICENSE),
+versão 3 ou posterior (GPLv3+).
